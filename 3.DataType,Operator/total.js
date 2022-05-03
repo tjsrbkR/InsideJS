@@ -108,3 +108,109 @@ function Example39(){
     console.log(objA.val);
     console.log(objB.val);
 }
+//3-10 기본 타입과 참조 타입의 비교연산 
+
+function Example310(){
+    let a = 100;
+    let b = 100;
+    let objA = {value : 100};
+    let objB = {value : 100};
+    let objC = objB;
+
+    console.log(a == b);
+    console.log(objA == objB); //false 이유는? 다른 객체지만 같은 형태의 프로퍼티 값을 가지고 있다. 객체와 같은 참조 타입의 경우는 참조값이 같아야 true
+    console.log(objB == objC);
+}
+//3-11 call by value 와 call by reference 차이
+function Example311(){
+    let a = 100;
+    let objA = {value : 100};
+    function changeArg(num, obj){
+        num = 200;
+        obj.value = 200;
+        console.log(num);
+        console.log(obj);
+    }
+    changeArg(a,objA);
+    console.log(a);
+    console.log(objA);
+}
+//3-12 객체 생성 및 출력
+function Example312(){
+    let foo = {
+        name : "foo",
+        age : 30
+    };
+    console.log(foo.toString()); 
+    console.log(foo);
+}
+//3-13 배열 리터럴을 통한 배열 생성
+function Example313(){
+    let colorArrr = ["orange","red","yellow","blue"];
+    console.log(colorArrr[0]);
+    console.log(colorArrr[1]);
+    console.log(colorArrr[4]);
+}
+//3-14 배열 요소의 동적 생성
+function Example314(){
+    let emptyArr = [];
+    console.log(emptyArr[0]);
+    emptyArr[0] = 100;
+    emptyArr[3] = "eight";
+    emptyArr[7] = true;
+    console.log(emptyArr);
+    console.log(emptyArr.length);
+}
+//3-15 배열의 length 프로퍼티 변경
+function Example315(){
+    let arr = [];
+    console.log(arr);
+    arr[0] = 0;
+    arr[100] = 100;
+    console.log(arr.length);
+}
+//3-16 배열의 length 프로퍼티의 명시적 변경
+function Example316(){
+    let arr = [0,1,2];
+    console.log(arr.length);
+
+    arr.length = 5;
+    console.log(arr);
+    arr.length = 2;
+    console.log(arr);
+    console.log(arr[2]);
+}
+//3-17 push() 메서드와 length 프로퍼티 
+function Exaple317(){
+    let arr= ["zero","one","two"];
+    arr.push("three");
+    console.log(arr);
+    arr.length = 5;
+    arr.push("five");
+    console.log(arr);
+}
+//3-18 배열과 객체의 유사점과 차이점
+function Example318(){
+    let colorsArray = ["orange","yellow","red"];
+    console.log(colorsArray[0]);
+    console.log(colorsArray[1]);
+    console.log(colorsArray[2]);
+
+    let colorsObj = {
+        "0" : "orange",
+        "1" : "yellow",
+        "2" : "red"
+    };
+
+    console.log(colorsObj[0]);
+    console.log(colorsObj[1]);
+    console.log(colorsObj[2]);
+
+    console.log(typeof colorsArray);
+    console.log(typeof colorsObj);
+
+    console.log(colorsArray.length);
+    console.log(colorsObj.length);
+    colorsArray.push("blue");
+    colorsObj.push("s");
+}
