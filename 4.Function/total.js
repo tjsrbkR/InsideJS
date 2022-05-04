@@ -299,3 +299,53 @@ function Example426(){
     };
     myObject.punc();
 }
+
+//this 이해가 잘 안되서 연습.
+function practice(){
+    // let apple = "독이 든 사과";
+    // let apple2 = {
+    //     apple:"맛있는 사과",
+    //     eatapple : eatAppleFn
+    // };
+    // function eatAppleFn() {	
+    //     console.log(`백설공주가 ${this.apple}를 먹습니다.`);    
+    // }
+    // apple2.eatAppleFn();
+    // apple.eatAppleFn();
+
+    // var apple = '독이 든 사과';
+    // var home = {
+    // apple: '맛있는 사과',
+    // eatApple: eatAppleFn
+    // }
+
+    // function eatAppleFn() {	
+    // console.log(`백설공주가 ${this.apple}를 먹습니다.`);    
+    // }
+
+    // // (1) 객체 method 호출
+    // home.eatApple(); // 백설공주가 맛있는 사과를 먹습니다.
+
+    // // (2) 함수 직접 호출
+    // eatAppleFn(); // 백설공주가 독이 든 사과를 먹습니다.
+    var home2 = {
+        apple: '독이든 사과',
+        eatApple: eatAppleFn
+     }
+    var home = {
+        apple: '맛있는 사과',
+        eatApple: eatAppleFn
+    }
+
+    function eatAppleFn() {	
+    console.log(`백설공주가 ${this.apple}를 먹습니다.`);    
+    }
+
+    // (1) 객체 method 호출
+    home.eatApple(); // 백설공주가 맛있는 사과를 먹습니다.
+
+    // (2) 함수 직접 호출
+    home2.eatApple(); // 백설공주가 독이 든 사과를 먹습니다.
+    
+}
+practice();
