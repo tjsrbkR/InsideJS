@@ -214,3 +214,119 @@ function Example318(){
     colorsArray.push("blue");
     colorsObj.push("s");
 }
+//3-19 배열의 프로토타입과 객체의 프로토타입 비교
+function Example319(){
+    let emptyArr = [];
+    let emptyObj = {};
+    
+    console.dir(emptyArr);
+    console.dir(emptyObj);
+}
+//3-20 배열의 동적 프로퍼티 생성 다시 테스트 해볼것
+function Example320(){
+    let arr = ["a","b","c"];
+    console.log(arr);
+    arr.color = "red";
+    arr.name = "number_array";
+    console.log(arr.length);
+    arr[3] = "red";
+    console.log(arr.length);
+    console.dir(arr);
+}
+//3-21 배열의 프로퍼티 열거
+function Example321(){
+    let arr = ["a","b","c"];
+    arr.color = "red";
+    arr.name = "number_array";
+    arr[3] = "red";
+
+    for (let prop in arr){
+        console.log(prop,arr[prop]);
+
+    }
+    for(let i=0; i<arr.length; i++){
+        console.log(i,arr[i]);
+    }
+}
+//3-22 delete 연산자를 이용한 배열 프로퍼티 삭제
+function Example322(){
+    let arr = ["1","2","3","4"];
+    delete arr[2]; 
+    console.log(arr);
+    console.log(arr.length);
+}
+//3-23 splice() 메서드를 이용한 배열 프로퍼티 삭제
+function Example323(){
+    let arr = ["1","2","3","4"];
+    arr.splice(2,1); 
+    console.log(arr);
+    console.log(arr.length);
+}
+//3-24 Array() 생성자 함수를 통한 배열 생성
+function Exaple324(){
+    let foo = new Array(3);
+    console.log(foo);
+    console.log(foo.length);
+
+    let bar = new Array(1 ,2 , 3);
+    console.log(bar);
+    console.log(bar.length);
+}
+//3-25 유사 배열 객체의 배열 메서드 호출
+function Example325(){
+    let arr = ["bar"];
+    let obj = {
+        name : "foo",
+        length : "1"
+    };
+    arr.push("bax");
+    obj.push("Asd"); // 에러 obj는 배열이 아니라 객체 형태 이기 때문에 push 함수를 사용할수 없다.
+    console.log(arr);
+    console.log(obj);
+}
+//3-26 유사 배열 객체에서 apply()를 활용한 배열 메서드 호출
+function Example326(){
+    let arr = ["let"];
+    let obj = {name : "foo", length : 1};
+    arr.push("ba");
+    console.log(arr);
+    Array.prototype.push.apply(obj, ["baz"]);
+    console.log(obj);
+}
+//3-27 기본 타입 변수에서의 메서드 호출
+function Exaple327(){
+    let num = 0.5;
+    console.log(num.toExponential(1));//숫자를 지수 형태의 문자열로 변환
+
+    console.log("test".charAt(2)); // 문자열에서 인자로 받은 위치에 있는 문자를 반환
+}
+//3-28 + 연산자 예제
+function Exaple328(){
+    let add1 = 1 + 2;
+    let add2 = "my" + "string";
+    let add3 = 1 + "string";
+    let add4 = "my" + 2;
+
+    console.log(add1);
+    console.log(add2);
+    console.log(add3);
+    console.log(add4);
+}
+//3-29 ==(동등)연산자와 ===(일치) 연산자의 차이점
+function Example329(){
+    console.log(1 == "1");
+    console.log(1 === "1");
+}
+//3-30 !! 연산자 활용을 통한 불린값 변환
+function Example3330(){
+    console.log(!!0);
+    console.log(!!1);
+    console.log(!!"string");
+    console.log(!!"");
+    console.log(!!true);
+    console.log(true);
+    console.log(false);
+    console.log(!!false);
+    console.log(!false);
+}
+    
