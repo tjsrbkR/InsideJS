@@ -139,3 +139,163 @@ function Example414(){
     console.dir(myFunction.prototype);
     console.dir(myFunction.prototype.constructor);
 }
+//4-15 window.onload 이벤트 핸들러 예제 코드
+function Example415(){
+    window.onload = function(){
+        alert("이것은 콜백 함수 이다.")
+    }
+}
+//4-16 즉시 실행 함수 예제
+function Example416(){
+    (function (name){
+        console.log("이것은 즉시 실행 함수 이다." + name);
+    })("foo");
+}
+//4-17 제이쿼리 에서 사용된 즉시 실행 함수
+function Example417(){
+    (function ( window, undefined){
+
+    })(window);
+}
+//4-18 내부함수 예제
+function Example418(){
+    function parent(){
+        let a = 100;
+        let b = 200;
+        function child(){
+            let b = 300; 
+            console.log(a);
+            console.log(b);
+        }
+        child();
+    }
+    parent();
+    child(); // 에러 parent 함수 내부에서는 함수를 호출 할수 있으나 parent 함수 밖에서는 내부함수인 child를 호출할수 없음.
+}
+//4-19 함수 스코프 외부에서 내부 함수 호출하는 예제
+function Example419(){
+    function parent(){
+        let a = 100;
+        let child = function(){
+            console.log(a);
+        }
+        return child;
+    }
+    let inner = parent();
+    inner();  
+}
+//4-20 자신을 재정의 하는 함수 예제
+function Example420(){
+    let self = function(){
+        console.log("a");
+        return function (){
+            console.log("b");
+        }
+    }
+    self = self();
+    self();
+}
+//4-21 함수 형식에 맞춰 인자를 넘기지 않더라도 함수 호출이 가능함을 나타내는 예제
+function Example421(){
+    function fig(arg1, arg2){
+        console.log(arg1, arg2);
+    }
+    fig();
+    fig(1);
+    fig(1,2);
+    fig(1,2,3);
+}
+//4-22 arguments 객체 예제 
+function Example422(){
+    function add(a,b){
+        console.dir(arguments);
+        return a+b;
+
+    }
+    console.log(add(1));
+    console.log(add(1,2));
+    console.log(add(1,2,3));
+    console.log(add(1,2,3,4));
+    
+
+}
+//4-23 메서드 호출 사용시 this 바인딩
+function Example423(){
+    let myObject = {
+        name : "foo",
+        sayName: function(){
+            console.log(this.name);
+        }
+    };
+
+    let otherObject = {
+        name : "bar"
+    };
+
+    otherObject.sayName = myObject.sayName;
+    myObject.sayName();
+    otherObject.sayName();
+}
+//4-24 전역 객체와 전역 변수의 관계를 보여주는 예제 
+function Example424(){
+    let foo = "im foo"; 
+    console.log(foo);
+    console.log(window.foo);
+}
+//4-25함수를 호출할때 this 바인딩을 보여주는 예제
+function Example425(){
+    let test = "this is test";
+    console.log(window.test);
+    let sayFoo = function(){
+        console.log(this.test);
+    }
+    sayFoo();
+}
+//4-26 내부 함수의 this 바인딩 동작을 보여주는 예제
+function Example426(){
+    let value = 100;
+
+    let myObject = {
+        value : 1,
+        punc : function(){
+            this.value += 1; 
+            console.log ("punc1() 호출. this.value : " + this.value);
+            punc2 = function (){
+                this.value += 1;
+                console.log ("punc2() 호출. this.value : " + this.value);
+                punc3 = function(){
+                    this.value += 1;
+                    console.log ("punc3() 호출. this.value : " + this.value);
+                    
+                }
+                punc3();
+            }
+            punc2();
+        }
+    };
+    myObject.punc();
+}
+
+//4-27 내부 함수의 this 바인딩 문제를 해결한  예제
+function Example426(){
+    let value = 100;
+
+    let myObject = {
+        value : 1,
+        punc : function(){
+            let that = this; 
+            console.log ("punc1() 호출. this.value : " + this.value);
+            punc2 = function (){
+                this.value += 1;
+                console.log ("punc2() 호출. this.value : " + that.value);
+                punc3 = function(){
+                    this.value += 1;
+                    console.log ("punc3() 호출. this.value : " + that.value);
+                }
+                punc3();
+            }
+            punc2();
+        }
+    };
+    myObject.punc();
+}
