@@ -348,4 +348,117 @@ function practice(){
     home2.eatApple(); // 백설공주가 독이 든 사과를 먹습니다.
     
 }
-practice();
+//4-28 생성자 함수의 동작 방식
+function Example428(){
+    let Person = function (name){
+        this.name = name;
+    };
+    let foo = new Person('foo');
+    console.log(foo.name);
+}
+//4-29 객체 생성 두가지 방법(객체 리터럴 VS 생성자 함수)
+function Example429(){
+    let foo = { //객체 리터럴 방식으로 foo 객체 생성
+        name : "foo",
+        age : "35",
+        gender : "man"
+    };
+    console.dir(foo);
+    //생성자 함수
+    function Person(name,age,gender,position){
+        this.name = name;
+        this.age = age;
+        this.gender = gender;    
+        this.position = position;
+    }
+    //Person 생성자 함수를 이용해 bar객체, baz 객체 생성
+    let bar = new Person("bar",33,"woman");
+    console.dir(bar);
+    let baz = new Person("baz",25,"woman");
+    console.dir(baz);
+}    
+//4-30 new 를 붙이지 않고 생성자 함수 호출시 오류예제
+function Example430(){ 
+    // 오류가 안나려면 qux 변수에 new Person 으로 수정 하고 생성자 함수로 만든 인스턴스 생성
+    // let Person = function(name,age,gender){
+    //     this.name = name; // <- 인스턴스
+    //     this.age = age;
+    //     this.gender = gender; 
+    // }
+
+    let qux =  Person("foo",33,"man");
+    console.log(qux);
+    console.log(window.name);
+    console.log(window.age);
+    console.log(window.gender);
+}
+//4-31 aplly() 메서드를 이용한 명시적인 this 바인딩
+function Example431(){
+    function Person(name,age,gender){
+        this.name = name;
+        this.age = age;
+        this.gender = gender; 
+    }
+    let foo = {};
+    Person.apply(foo,["foo",32,"aplly 방식 호출"]);//aplly 방식
+    Person.call(foo,"a",3,"call 방식 호출"); //call 방식
+    console.dir(foo);
+}
+//P117 4-32 aplly() 메서드를 활용한 arguments 객체의 배열 표준 메서드 slice 활용 코드
+function Exaple432(){
+    function myFunction(){
+        console.dir(arguments);
+        //arguments.shift(); //에러 
+        // arguments 객체를 배열로 변환
+        let args = Array.prototype.slice.apply(arguments);
+        console.dir(args);
+    }
+
+    myFunction(1,2,3);
+}
+// 4-33 slice 메서드 사용 예제
+function Exaple433(){
+    let arr = [1,2,3];
+    let ssd = arr.slice(0);
+    let ssd1 = arr.slice();
+    let ssd2 = arr.slice(1);
+    let ssd3 = arr.slice(1,2);
+    let ssd4 = arr.slice(1,2,3);
+
+    console.log(ssd);
+    console.log(ssd1);
+    console.log(ssd2);
+    console.log(ssd3);
+    console.log(ssd4);
+}
+// 4-34 return 문 없는 일반 함수의 리턴값 확인
+function Exaple434(){
+    let noReturn = function (){
+        console.log("이 함수는 리턴상태를 포함하지 않는다");
+    };
+    let result = noReturn();
+    console.log(result);
+}
+//4-35 생성자 함수에서 명시적으로 객체를 리턴했을 경우
+function Example435(){
+    function Person(name,age,gender){
+        this.name = name;
+        this.age = age;
+        this.gender = gender; 
+        return {name:"bar", age:20,gender:"woman"};
+    }
+    let foo = new Person("foo",30,"man"); 
+    console.dir(foo);
+}
+//4-36 생성자 함수에서 명시적으로 기본 타입(불린,숫자,문자열) 값을 리턴했을 경우
+function Example436(){
+    function Person(name,age,gender){
+        this.name = name;
+        this.age = age;
+        this.gender = gender; 
+        return 100; 
+    }
+    let foo = new Person("foo",30,"man");
+    console.log(foo);
+
+}
