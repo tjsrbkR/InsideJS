@@ -462,3 +462,36 @@ function Example436(){
     console.log(foo);
 
 }
+//4-37 prototype 프로퍼티와 [[Prototype]] 링크 구분
+function Example437(){
+    function Person(name){
+        this.name = name;
+    }
+    let foo = new Person("foo");
+    console.dir(Person);
+    console.dir(foo);
+}
+//4-38 객체 리터럴 방식에서의 프로토타입 체이닝
+function Exaple438(){
+    let Obj = {
+        name:"foo",
+        sayName : function(){
+            console.log("my name is "+ this.name);
+        }
+
+    };
+    Obj.sayName();
+    console.log(Obj.hasOwnProperty("name"));
+    console.log(Obj.hasOwnProperty("nickName"));
+}
+//4-39 생성자 함수 방식에서의 프로토타입 체이닝
+function Example439(){
+    function Person(name,age,gender){
+        this.name = name;
+        this.age = age;
+        this.gender = gender; 
+    }
+    let foo = new Person("han",32,"man");
+    console.log(foo.hasOwnProperty("name"));
+    console.dir(Person.prototype);
+}
