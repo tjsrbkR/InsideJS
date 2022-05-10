@@ -481,7 +481,7 @@ function Exaple438(){
 
     };
     Obj.sayName();
-    console.log(Obj.hasOwnProperty("name"));
+    console.log(Obj.hasOwnProperty("name"));//hasOwnProperty => 매개변수로 괄호 안에 있는것을 가져왔는가? 있으면 true 없으면 false
     console.log(Obj.hasOwnProperty("nickName"));
 }
 //4-39 생성자 함수 방식에서의 프로토타입 체이닝
@@ -494,4 +494,74 @@ function Example439(){
     let foo = new Person("han",32,"man");
     console.log(foo.hasOwnProperty("name"));
     console.dir(Person.prototype);
+}
+//4-40 String 기본 타입에 메서드 추가
+function Example440(){
+    String.prototype.testMethod = function(){
+        console.log("this is the String.prototype.testMethod()");
+    };
+    let str = "this is test";
+    str.testMethod();
+    console.dir(String.prototype); 
+}
+//4-41 프로토타입 객체의 동적 메서드 생성 예제
+function Example441(){
+    function Person(name){
+        this.name = name;
+    }
+    let foo = new Person("foo");
+    //foo.sayHello();
+    Person.prototype.sayHello() = function(){ //에러 책 보고 따라 했는데... 
+        console.log("hello");
+    }
+    //프로토 타입 객체에 sayHello() 메서드 정의
+    foo.sayHello();
+}
+//4-42 프로토타입 메서드와 this 바인딩
+function Exaple442(){
+    function Person(name){
+        this.name = name;
+    }
+    Person.prototype.getName = function (){
+        return this.name;
+    };
+    let foo = new Person("foo");
+    console.log(foo.getName());
+    Person.prototype.name = "Person";
+    console.log(Person.prototype.getName());
+}
+//4-43 프로토타입 객체 변경
+function Example443(){
+    function Person(name){
+        this.name = name;
+    }
+    console.log(Person.prototype.constructor);
+    let foo = new Person("foo");
+    console.log(foo.constructor);
+    Person.prototype = {
+        country : "korea",
+    }
+    console.log(Person.prototype.constructor);
+ 
+    let bar = new Person("bar");
+    console.log(foo.country);
+    console.log(bar.country);
+    console.log(foo.constructor);
+    console.log(bar.constructor);
+}
+
+//4-44 프로토타입 체이닝과 동적 프로퍼티 생성
+function Example444(){
+    function Person(name){
+        this.name = name;
+    }
+    Person.prototype.country = "Korea";
+    let foo = new Person("foo");
+    let bar = new Person("bar");
+    console.log(foo.country);
+    console.log(bar.country);
+    foo.country = "USA";
+    
+    console.log(foo.country);
+    console.log(bar.country);
 }
