@@ -131,6 +131,34 @@ function Example413(){
     console.log('func3.length - ' +  func3.length);
     
 }
+// 프로토타입을 사용 하는 이유 : 나의 생각으로는 
+
+// function Person() {
+//     this.eyes = 2;
+//     this.nose = 1;
+//   }
+//   var kim  = new Person();
+//   var park = new Person();
+//   console.log(kim.eyes);  // => 2
+//   console.log(kim.nose);  // => 1
+//   console.log(park.eyes); // => 2
+//   console.log(park.nose); // => 1
+// 위와 같은 코드가 있으면 kim과 park 은 eyes와 nose를 각각 갖고있는 형태가 된다.
+//  kim은 nose=2,eyes=1 park 도 마찬가지로 eyes,nose를 갖고있게된다
+// 이러면 메모리에 총 4개가 할당이 되는데 좋지 못한 코드가 된다
+// 프로토타입을 사용하면 중복된 메모리 영역을 제거할수 있다.
+
+// function Person() {}
+// Person.prototype.eyes = 2;
+// Person.prototype.nose = 1;
+// var kim  = new Person();
+// var park = new Person();
+// console.log(kim.eyes); // => 2
+// 위 코드로 메모리 영역이 4개에서 2개로 줄일수 있다. 
+
+
+
+
 //4-14 함수 객체와 프로토타입 객체와의 관계를 보여주는 코드
 function Example414(){
     function myFunction(){

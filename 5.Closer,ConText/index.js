@@ -71,7 +71,9 @@ function Example56(){
     printFuc(printvalue);
 }
 //5-7 클로저의 개념
-// 클로저란? 클로저는 함수를 지칭하고 또 그 함수가 선언된 환경과의 관계라는 개념이 합쳐진것이다.
+// 클로저란? 클로저는 내부 함수가 정의될 떄 외부 함수의 환경을 기억하고 있는 내부 함수를 말합니다
+// 이미 생명주기가 끝난 외부 함수의 변수를 참조하는것을 클로저 라고 한다.
+// 사용 하는 이유 => 전역 변수의 남용을 막을 수 있고 변수 값을 은닉하는 용도로도 사용할 수 있다. 
 function Example57(){
     function outerFunc(){
         let x = 10; 
@@ -140,3 +142,96 @@ function Example510(){
     }
     let obj1 = new newObj(objHello, "zzoon");
 }   
+//5-11 함수의 캡슐화
+function Example511(){
+    let buffAr = [
+        "I am",
+        "",
+        ". I live in",
+        "",
+        ". I \"am",
+        "",
+        " years old.",
+    ]; 
+    function getCompletedStr(name, city , age){
+        buffAr[1] = name;
+        buffAr[2] = city;
+        buffAr[3] = age;
+        
+        return buffAr.join("");
+    }
+    let str = getCompletedStr("zzoon", "seoul", 16); 
+    console.log(str);
+}
+//5-12 
+function Example512(){
+    let buffAr = [
+        "I am",
+        "",
+        ". I live in",
+        "",
+        ". I\"am ",
+        "",
+        " years old.",
+    ]; 
+    function getCompletedStr(name, city , age){
+        buffAr[1] = name;
+        buffAr[3] = city;
+        buffAr[5] = age;
+        
+        return buffAr.join("");
+    }
+    let str = getCompletedStr("zzoon", "seoul", 16); 
+    console.log(str);
+}
+//5-13 setTimeout 함수로 호출했을때
+function Example513(){
+    function callLater(obj,a,b){
+        return (function(){
+            obj["sum"] = a + b;
+                console.log(obj["sum"]);
+        });
+    }
+    let sumObj = {
+        sum : 0
+    };
+    let punc = callLater(sumObj,1,2);
+    setTimeout(punc,500);
+}
+//5-14 클로저의 프로퍼티 값이 쓰기 가능하므로 그 값이 여러번 호출로 하상 변할 수 있음에 유의 해야 한다 
+function Example514(){
+    function outerFunc(argNum){
+        let num = argNum;
+        return function(x){
+            num += x;
+            console.log("num : " + num); 
+        }
+    }
+    let exam = outerFunc(40);
+    exam(5); //return function(x) 여기서 x값에 5가 들어감. 결과는 45
+    exam(-10);//위 함수에서 num 의 값이 45로 됨으로서 x값에 -10이 들어감. 결과는 35 
+}
+//5-15 하나의 클로저가 여러 함수 객체의 스코프 체인에 들어가 있는 경우도 있다.
+function Example515(){
+    function punc(){
+        let x = 1;
+        return {
+            punc1 : function(){console.log(++x);},
+            punc2 : function(){console.log(-x);}
+        };
+    }
+    let exam = punc();
+    exam.punc1();
+    exam.punc2();
+}
+//5-16 루프 안에서 클로저를 활용할때는 주의하자
+function Example516(){
+    function countSeconds(howmany){
+        for(let i = 1; i<=howmany; i++){
+            setTimeout(function (){
+                console.log(i);
+            }, i *1000);
+        }
+    }
+    countSeconds(3);
+}Example516();
