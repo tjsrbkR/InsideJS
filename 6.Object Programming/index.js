@@ -210,3 +210,152 @@ function Example611(){
     arr.push(5);
     console.log(obj.getArr());  
 }
+//6-12 
+function Example612(){
+    let Person = function(arg){
+        let name = arg ? arg : "zzoon";
+        let punc = function(){};
+        punc.prototype = {
+            getName : function(){
+                return name; 
+            },
+            setName : function(arg){
+                name = arg;
+            }
+        };
+
+        let me = new Person();
+        console.log(me.getName());
+    }
+}
+//6-13 클래스의 기능을 가진 subClass 함수
+function Example613(){
+    function subClass(obj){
+        let parent = this === window ? Function : this; 
+        let F = function(){};
+        let child = function(){
+            let _parent = child.parent;
+            if(_parent && +parent !==Function){
+                _parent.apply(this, arguments);
+            }
+            if(child.prototype._init){
+                child.prototype._init.aplly(this, arguments);
+            }
+        };
+        F.prototype = parent.prototype;
+        child.prototype.consturctor = child;
+        child.parent = parent;
+        child.subClass = arguments.callee;
+        for(let i in obj){
+            if(obj.hasOwnProperty(i)){
+                child.prototype[i] = obj[i];
+            }
+        }
+        return child; 
+
+    }
+}
+//6-14 subClass 함수로 상속 예제 만들기
+function Example614(){
+    function subClass(obj){
+        let parent = this === window ? Function : this; 
+        let F = function(){};
+        let child = function(){
+            let _parent = child.parent;
+            if(_parent && +parent !==Function){
+                _parent.apply(this, arguments);
+            }
+            if(child.prototype._init){
+               child.prototype._init.apply(this,arguments);
+            }
+        };
+        F.prototype = parent.prototype;
+        child.prototype.consturctor = child;
+        child.parent = parent;
+        child.subClass = arguments.callee;
+        for(let i in obj){
+            if(obj.hasOwnProperty(i)){
+                child.prototype[i] = obj[i];
+            }
+        }
+        return child; 
+    }
+
+    let person_obj = {
+        _init : function(){
+            console.log("Person init");
+        },
+        getName : function(){
+            return this._name;
+        },
+        setName : function(name){
+            this._name = name;
+        }
+    };
+    let student_obj = {
+        _init : function(){
+            console.log("student init");
+        },
+        getName : function(){
+            return "Student Nmae : " + this._name;
+        }
+    };
+
+    let Person = subClass(person_obj);
+    let person = new Person();
+    person.setName("zzoon");
+    console.log(person.getName());
+
+    let Student = Person.subClass(student_obj);
+    let student = new Student();
+    student.setName("iamhjoo"); //에러 ...  왜지... ? setName is not function 에러
+    console.log(student.getName());
+    console.log(Person.toString());
+}
+//6-15 모듈패턴을 이용한 객체지향 프로그래밍
+function Example615(){
+    function subClass(obj){
+        let parent = this === window ? Function : this; 
+        let F = function(){};
+        let child = function(){
+            let _parent = child.parent;
+            if(_parent && +parent !==Function){
+                _parent.apply(this, arguments);
+            }
+            if(child.prototype._init){
+               child.prototype._init.apply(this,arguments);
+            }
+        };
+        F.prototype = parent.prototype;
+        child.prototype.consturctor = child;
+        child.parent = parent;
+        child.subClass = arguments.callee;
+        for(let i in obj){
+            if(obj.hasOwnProperty(i)){
+                child.prototype[i] = obj[i];
+            }
+        }
+        return child; 
+    }
+
+    let Person = function(arg){
+        let name = undefined;
+        return {
+            _init : function(arg){
+                name = arg ? arg : "zzoon";
+            },
+            getName : function(){
+                return name;
+            },
+            setName : function(arg){
+                name = arg;
+            }
+        };
+    }
+    Person = subClass(Person());
+    let iamhjoo = new Person("iamhjoo");
+    console.log(iamhjoo.getName());
+    Student = Person.subClass();
+    let student = new Student("student");
+    console.log(student.getName());//getName is not function 오류
+}
