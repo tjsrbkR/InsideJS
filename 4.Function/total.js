@@ -408,6 +408,7 @@ function Example429(){
 //4-30 new 를 붙이지 않고 생성자 함수 호출시 오류예제
 function Example430(){ 
     // 오류가 안나려면 qux 변수에 new Person 으로 수정 하고 생성자 함수로 만든 인스턴스 생성
+    // 인스턴스란? => 인스턴스는 해당 클래스의 구조로 컴퓨터 저장공간에서 할당된 실체를 의미한다.
     // let Person = function(name,age,gender){
     //     this.name = name; // <- 인스턴스
     //     this.age = age;
