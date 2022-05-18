@@ -224,7 +224,87 @@ function Example78(){
     let new_punc = curry2(calculate,1,undefined,4);
     console.log(new_punc(3)); 
 }
-
+function test(){
 const ary = [1,2,3,4,5,"1"];
 Array.prototype.push.call(ary,"3"); //Array.prototype 메서드를 사용 했으면 뒤에 .call 붙여야 호출 가능 하다 ex) Array.prototype.slice.call(1,3);
 console.log(ary);
+}
+//7-10 래퍼 
+function Example710(){
+    function wrap(object,method,wrapper){
+        let fn = object[method];
+        return object[method] = function(){
+            return wrapper.apply(this,[ fn ].concat
+            (Array.prototype.slice.call(arguments)));
+        }
+    }
+    Function.prototype.original = function(value){
+        this.value = value;
+        console.log("value : " + this.value);
+    }
+    let mywrap = wrap(Function.prototype, "original", function(orig_punc,value){
+        this.value = 20;
+        orig_punc(value);
+        console.log("wrapper vlaue : " + this.value);
+    });
+    let obj = new mywrap("zzon");
+
+}
+//7-11 each() 함수 
+
+function Example711(){
+    function each(obj,fn,args){
+        if(obj.length == undefined)
+        for(let i in obj)
+        fn,apply(obj[i],args || [i,obj[i]]); 
+        else 
+        for(let i =0; i< obj.length; i++)
+            fn.apply(obj[i], args || [i, obj[i]]);
+            return obj;
+    };
+    each([1,2,3], function(idx, num){
+        console.log(idx + ": " + num);
+    });
+    let zzoon = {
+        name : "zzoon",
+        age : 30,
+        sex : "male"
+    };
+
+    each(zzoon, function(idx,value){
+        console.log(idx+ ": " + value);
+    });
+}
+//7-12 map 함수 
+function Example712(){
+    Array.prototype.map = function(callback){
+        let obj = this;
+        let value,mapped_value;
+        let A = new Array(obj.length); 
+
+        for(let i = 0; i<obj.length; i++){
+            value = obj[i];
+            mapped_value = callback.call(null,value);
+            A[i] = mapped_value;
+        }
+        return A;
+    };
+    let arr = [1,2,3];
+    let new_arr = arr.map(function(value){
+        return value*value;
+    });
+    console.log(new_arr);
+}
+//7-13  reduce함수 
+function Example713(){
+    Array.prototype.reduce = function(callback,memo){
+        let obj = this;
+        let value, accumulated_value = 0;
+        for(let i = 0 ;i<obj.length; i++){
+            value = obj[i];
+            accumulated_value = callback.call(null,accumulated_value,value);
+        }
+        return accumulated_value;
+    };
+    
+}
